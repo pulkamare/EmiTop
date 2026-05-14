@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RELU</title>
+
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        height: 100vh;
+        background: #000;
+        font-family: Arial, sans-serif;
+    }
+
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .center {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 2;
+    }
+
+    h1 {
+        color: white;
+        font-size: 12vw;
+        letter-spacing: 20px;
+        text-transform: uppercase;
+        margin: 0;
+        text-shadow:
+            0 0 10px #00ffff,
+            0 0 20px #00ffff,
+            0 0 40px #0088ff,
+            0 0 80px #0088ff;
+        animation: pulse 2s infinite;
+    }
+
+    p {
+        color: #aaa;
+        margin-top: 10px;
+        font-size: 1.2rem;
+        letter-spacing: 5px;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); filter: brightness(1); }
+        50% { transform: scale(1.05); filter: brightness(1.5); }
+        100% { transform: scale(1); filter: brightness(1); }
+    }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="center">
+    <h1 id="text"></h1>
+    <p>WELCOME TO THE FUTURE</p>
+</div>
+
+<script>
+/* ===== TEXT ANIMATION ===== */
+const text = "RELU";
+let i = 0;
+
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("text").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 300);
+    }
+}
+typeWriter();
+
+/* ===== PARTICLE BACKGROUND ===== */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particlesArray = [];
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3;
+        this.speedX = (Math.random() - 0.5) * 2;
+        this.speedY = (Math.random() - 0.5) * 2;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+
+    draw() {
+        ctx.fillStyle = "#00ffff";
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = "#00ffff";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function init() {
+    for (let i = 0; i < 120; i++) {
+        particlesArray.push(new Particle());
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let p of particlesArray) {
+        p.update();
+        p.draw();
+    }
+
+    requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+/* resize */
+window.addEventListener("resize", function () {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
