@@ -1,152 +1,281 @@
+
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>C N Mihai Eminescu Satu Mare</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="icon" type="image/png"
+    <title>RELU</title>
+
+    <link rel="icon" type="image/png"
         href="https://cloud-a.edupage.org/cloud?z%3AYiRAECQh3w%2BQv3nfE9ePzOslO3Rq9uk6YBeKCSR2erPmaMj13AYi9C0MmtanZS8Ta6A66jYgUNI1kS%2BRay27mQ%3D%3D">
 
-<style>
-    body {
-        margin: 0;
-        overflow: hidden;
-        height: 100vh;
-        background: #000;
-        font-family: Arial, sans-serif;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-    .center {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        z-index: 2;
-    }
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
 
-    h1 {
-        color: white;
-        font-size: 12vw;
-        letter-spacing: 20px;
-        text-transform: uppercase;
-        margin: 0;
-        text-shadow:
-            0 0 10px #00ffff,
-            0 0 20px #00ffff,
-            0 0 40px #0088ff,
-            0 0 80px #0088ff;
-        animation: pulse 2s infinite;
-    }
+            background:
+                radial-gradient(circle at 20% 20%, #243bff55 0%, transparent 35%),
+                radial-gradient(circle at 80% 80%, #00e5ff44 0%, transparent 35%),
+                linear-gradient(135deg, #050505, #0b1020, #050505);
 
-    p {
-        color: #aaa;
-        margin-top: 10px;
-        font-size: 1.2rem;
-        letter-spacing: 5px;
-    }
+            overflow: hidden;
+        }
 
-    @keyframes pulse {
-        0% { transform: scale(1); filter: brightness(1); }
-        50% { transform: scale(1.05); filter: brightness(1.5); }
-        100% { transform: scale(1); filter: brightness(1); }
-    }
-</style>
+        body::before {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: #304cff;
+            filter: blur(180px);
+            opacity: 0.15;
+            top: -200px;
+            left: -200px;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: #00e5ff;
+            filter: blur(180px);
+            opacity: 0.12;
+            bottom: -200px;
+            right: -200px;
+            pointer-events: none;
+        }
+
+        .card {
+            position: relative;
+            width: min(90%, 600px);
+            padding: 55px 35px;
+            text-align: center;
+
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 30px;
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.55),
+                inset 0 1px 1px rgba(255, 255, 255, 0.08);
+
+            animation: appear 0.8s ease;
+        }
+
+        h1 {
+            font-size: clamp(60px, 15vw, 110px);
+            font-weight: 900;
+            letter-spacing: 12px;
+            margin-bottom: 30px;
+
+            background: linear-gradient(
+                90deg,
+                #ffffff,
+                #6c7cff,
+                #00e5ff,
+                #ffffff
+            );
+
+            background-size: 300% auto;
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            animation:
+                gradient 4s linear infinite,
+                glow 2s ease-in-out infinite alternate;
+        }
+
+        .line {
+            width: 70px;
+            height: 3px;
+            margin: 0 auto 30px;
+            border-radius: 10px;
+
+            background: linear-gradient(
+                90deg,
+                #5969ff,
+                #00e5ff
+            );
+        }
+
+        .messages {
+            margin-bottom: 35px;
+        }
+
+        .messages p {
+            color: #d5d8e5;
+            font-size: 17px;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .call-title {
+            color: #9da5bd;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .phone {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+
+            padding: 16px 25px;
+            border-radius: 50px;
+
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+
+            background: linear-gradient(
+                135deg,
+                #00c853,
+                #00e676
+            );
+
+            box-shadow:
+                0 10px 30px rgba(0, 230, 118, 0.25);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .phone:hover {
+            transform: translateY(-3px) scale(1.03);
+
+            box-shadow:
+                0 15px 40px rgba(0, 230, 118, 0.4);
+        }
+
+        .phone:active {
+            transform: scale(0.97);
+        }
+
+        .phone-icon {
+            font-size: 22px;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% center;
+            }
+
+            100% {
+                background-position: 300% center;
+            }
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 5px #5969ff);
+            }
+
+            to {
+                filter: drop-shadow(0 0 20px #00e5ff);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 45px 20px;
+                border-radius: 25px;
+            }
+
+            h1 {
+                letter-spacing: 7px;
+            }
+
+            .messages p {
+                font-size: 15px;
+            }
+
+            .phone {
+                width: 100%;
+                font-size: 18px;
+                padding: 17px 15px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<canvas id="particles"></canvas>
+    <div class="card">
 
-<div class="center">
-    <h1 id="text"></h1>
-    <p>Paraschivei îi place ciocanul</p>
-</div>
+        <h1 id="text"></h1>
 
-<script>
-/* ===== TEXT ANIMATION ===== */
-const text = "RELU";
-let i = 0;
+        <div class="line"></div>
 
-function typeWriter() {
-    if (i < text.length) {
-        document.getElementById("text").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, 300);
-    }
-}
-typeWriter();
+        <div class="messages">
+            <p>Lui Viorel NU îi place ciocanul</p>
+            <p>Paraschivei îi place ciocanul</p>
+        </div>
 
-/* ===== PARTICLE BACKGROUND ===== */
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+        <div class="call-title">
+            Sună-l pe Relu
+        </div>
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+        <a class="phone" href="tel:+40747922418">
+            <span class="phone-icon">📞</span>
+            <span>+40 747 922 418</span>
+        </a>
 
-let particlesArray = [];
+    </div>
 
-class Particle {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3;
-        this.speedX = (Math.random() - 0.5) * 2;
-        this.speedY = (Math.random() - 0.5) * 2;
-    }
+    <script>
+        const text = "RELU";
+        const element = document.getElementById("text");
 
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
+        let i = 0;
 
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-    }
+        function typeWriter() {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 220);
+            }
+        }
 
-    draw() {
-        ctx.fillStyle = "#00ffff";
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = "#00ffff";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
-
-function init() {
-    for (let i = 0; i < 120; i++) {
-        particlesArray.push(new Particle());
-    }
-}
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (let p of particlesArray) {
-        p.update();
-        p.draw();
-    }
-
-    requestAnimationFrame(animate);
-}
-
-init();
-animate();
-
-/* resize */
-window.addEventListener("resize", function () {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
-</script>
+        typeWriter();
+    </script>
 
 </body>
 </html>
+
