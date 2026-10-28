@@ -4,11 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
 
-    <title>RELU</title>
-
-    <link rel="icon" type="image/png"
-        href="https://cloud-a.edupage.org/cloud?z%3AYiRAECQh3w%2BQv3nfE9ePzOslO3Rq9uk6YBeKCSR2erPmaMj13AYi9C0MmtanZS8Ta6A66jYgUNI1kS%2BRay27mQ%3D%3D">
+    <title>Antal•Achim•Mitruț</title>
 
     <style>
         * {
@@ -19,122 +17,203 @@
 
         body {
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             justify-content: center;
             align-items: center;
-
+            padding: 35px 0;
             font-family: Arial, Helvetica, sans-serif;
             color: white;
-
             background:
                 radial-gradient(circle at 20% 20%, #243bff55 0%, transparent 35%),
-                radial-gradient(circle at 80% 80%, #00e5ff44 0%, transparent 35%),
+                radial-gradient(circle at 80% 80%, #00e5ff33 0%, transparent 35%),
                 linear-gradient(135deg, #050505, #0b1020, #050505);
-
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            background: #304cff;
-            filter: blur(180px);
-            opacity: 0.15;
-            top: -200px;
-            left: -200px;
-            pointer-events: none;
-        }
-
+        body::before,
         body::after {
             content: "";
             position: fixed;
-            width: 500px;
-            height: 500px;
-            background: #00e5ff;
-            filter: blur(180px);
-            opacity: 0.12;
-            bottom: -200px;
-            right: -200px;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(150px);
             pointer-events: none;
+            z-index: -1;
         }
 
-        .card {
-            position: relative;
-            width: min(90%, 600px);
-            padding: 55px 35px;
+        body::before {
+            background: #304cff;
+            opacity: .2;
+            top: -180px;
+            left: -180px;
+        }
+
+        body::after {
+            background: #00e5ff;
+            opacity: .13;
+            bottom: -180px;
+            right: -180px;
+        }
+
+        .container {
+            width: min(94%, 900px);
             text-align: center;
+            animation: appear .9s ease;
+        }
 
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 30px;
-
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-
-            box-shadow:
-                0 25px 80px rgba(0, 0, 0, 0.55),
-                inset 0 1px 1px rgba(255, 255, 255, 0.08);
-
-            animation: appear 0.8s ease;
+        .eyebrow {
+            color: #9da5bd;
+            font-size: 11px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 22px;
         }
 
         h1 {
-            font-size: clamp(60px, 15vw, 110px);
+            font-size: clamp(29px, 7vw, 58px);
             font-weight: 900;
-            letter-spacing: 12px;
-            margin-bottom: 30px;
-
+            letter-spacing: 1px;
+            line-height: 1.3;
+            overflow-wrap: anywhere;
+            margin-bottom: 25px;
             background: linear-gradient(
-                90deg,
-                #ffffff,
-                #6c7cff,
-                #00e5ff,
-                #ffffff
+                90deg, #fff, #8996ff, #00e5ff, #fff
             );
-
             background-size: 300% auto;
-
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-
             animation:
-                gradient 4s linear infinite,
+                gradient 6s linear infinite,
                 glow 2s ease-in-out infinite alternate;
         }
 
         .line {
-            width: 70px;
+            width: 75px;
             height: 3px;
-            margin: 0 auto 30px;
+            margin: 0 auto 28px;
             border-radius: 10px;
-
-            background: linear-gradient(
-                90deg,
-                #5969ff,
-                #00e5ff
-            );
+            background: linear-gradient(90deg, #5969ff, #00e5ff);
         }
 
-        .messages {
-            margin-bottom: 35px;
+        .question {
+            max-width: 600px;
+            margin: 0 auto 35px;
+            color: #f2f3fa;
+            font-size: clamp(19px, 4vw, 26px);
+            font-weight: 600;
+            line-height: 1.5;
         }
 
-        .messages p {
-            color: #d5d8e5;
-            font-size: 17px;
-            line-height: 1.6;
-            margin: 10px 0;
+        .profiles {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        .profile {
+            padding: 30px 22px;
+            border: 1px solid rgba(0, 229, 255, .22);
+            border-radius: 23px;
+            background: rgba(255, 255, 255, .055);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, .25),
+                inset 0 1px 1px rgba(255, 255, 255, .06);
+            transition:
+                transform .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .profile:hover {
+            transform: translateY(-5px);
+            border-color: #00e5ff88;
+            box-shadow: 0 20px 50px rgba(0, 229, 255, .09);
+        }
+
+        .profile-number {
+            display: inline-block;
+            margin-bottom: 14px;
+            color: #7f8cff;
+            font-size: 10px;
+            letter-spacing: 4px;
+        }
+
+        .profile h2 {
+            font-size: clamp(25px, 5vw, 34px);
+            font-weight: 900;
+            letter-spacing: 5px;
+            margin-bottom: 18px;
+        }
+
+        .price {
+            font-size: clamp(35px, 7vw, 46px);
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+        }
+
+        .currency {
+            color: #00e5ff;
+            font-size: 15px;
+            letter-spacing: 2px;
+        }
+
+        .per-hour {
+            color: #aab2ca;
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
+
+        .book-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            min-height: 52px;
+            padding: 15px 12px;
+            border: 1px solid rgba(255, 255, 255, .25);
+            border-radius: 50px;
+            color: #050505;
+            background: linear-gradient(135deg, #fff, #8cefff);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0, 229, 255, .13);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .book-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 35px rgba(0, 229, 255, .3);
+        }
+
+        .book-button:active {
+            transform: scale(.98);
+        }
+
+        /* Secțiunea de apel pentru Ampu */
+
+        .call-section {
+            margin-top: 38px;
+            padding: 28px 18px;
+            border: 1px solid rgba(0, 230, 118, .22);
+            border-radius: 23px;
+            background: rgba(255, 255, 255, .035);
         }
 
         .call-title {
-            color: #9da5bd;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
+            color: #f2f3fa;
+            font-size: clamp(15px, 3.5vw, 19px);
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 18px;
         }
 
         .phone {
@@ -142,50 +221,44 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-
+            max-width: 100%;
             padding: 16px 25px;
             border-radius: 50px;
-
             color: white;
             text-decoration: none;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: bold;
-
-            background: linear-gradient(
-                135deg,
-                #00c853,
-                #00e676
-            );
-
-            box-shadow:
-                0 10px 30px rgba(0, 230, 118, 0.25);
-
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
+            background: linear-gradient(135deg, #00a844, #00e676);
+            box-shadow: 0 10px 30px rgba(0, 230, 118, .2);
+            transition: transform .2s ease, box-shadow .2s ease;
         }
 
         .phone:hover {
-            transform: translateY(-3px) scale(1.03);
-
-            box-shadow:
-                0 15px 40px rgba(0, 230, 118, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 230, 118, .35);
         }
 
         .phone:active {
-            transform: scale(0.97);
+            transform: scale(.97);
         }
 
         .phone-icon {
-            font-size: 22px;
+            font-size: 20px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #777f98;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
         @keyframes appear {
             from {
                 opacity: 0;
-                transform: translateY(30px) scale(0.96);
+                transform: translateY(25px) scale(.97);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -193,43 +266,55 @@
         }
 
         @keyframes gradient {
-            0% {
-                background-position: 0% center;
-            }
-
-            100% {
-                background-position: 300% center;
-            }
+            0% { background-position: 0% center; }
+            100% { background-position: 300% center; }
         }
 
         @keyframes glow {
-            from {
-                filter: drop-shadow(0 0 5px #5969ff);
+            from { filter: drop-shadow(0 0 4px #5969ff); }
+            to { filter: drop-shadow(0 0 13px #00e5ff); }
+        }
+
+        @media (min-width: 650px) {
+            .profiles {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 16px;
             }
 
-            to {
-                filter: drop-shadow(0 0 20px #00e5ff);
+            .profile {
+                padding: 30px 16px;
+            }
+
+            .profile h2 {
+                font-size: 25px;
+                letter-spacing: 3px;
+            }
+
+            .book-button {
+                font-size: 10px;
+                letter-spacing: .5px;
             }
         }
 
-        @media (max-width: 600px) {
-            .card {
-                padding: 45px 20px;
-                border-radius: 25px;
+        @media (max-width: 380px) {
+            .eyebrow {
+                letter-spacing: 3px;
             }
 
-            h1 {
-                letter-spacing: 7px;
-            }
-
-            .messages p {
-                font-size: 15px;
+            .profile {
+                padding: 25px 17px;
             }
 
             .phone {
-                width: 100%;
-                font-size: 18px;
-                padding: 17px 15px;
+                padding: 14px 16px;
+                font-size: 14px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
             }
         }
     </style>
@@ -237,45 +322,92 @@
 
 <body>
 
-    <div class="card">
+    <main class="container">
 
-        <h1 id="text"></h1>
+        <div class="eyebrow">The exclusive experience</div>
+
+        <h1>Antal•Achim•Mitruț</h1>
 
         <div class="line"></div>
 
-        <div class="messages">
-            <p>Lui Viorel NU îi place ciocanul</p>
-            <p>Paraschivei îi place ciocanul</p>
+        <p class="question">
+            Vrei o noapte de colecție cu aceștia?
+        </p>
+
+        <div class="profiles">
+
+            <!-- ANTAL -->
+            <section class="profile">
+                <span class="profile-number">01 / EXPERIENCE</span>
+                <h2>ANTAL</h2>
+
+                <p class="price">
+                    250 <span class="currency">LEI</span>
+                </p>
+
+                <p class="per-hour">Pentru o oră</p>
+
+                <a class="book-button"
+                   href="mailto:booking@example.com?subject=Booking%20Antal">
+                    BOOK ANTAL NOW <span>↗</span>
+                </a>
+            </section>
+
+            <!-- ACHIM -->
+            <section class="profile">
+                <span class="profile-number">02 / EXPERIENCE</span>
+                <h2>ACHIM</h2>
+
+                <p class="price">
+                    250 <span class="currency">LEI</span>
+                </p>
+
+                <p class="per-hour">Pentru o oră</p>
+
+                <a class="book-button"
+                   href="mailto:booking@example.com?subject=Booking%20Achim">
+                    BOOK ACHIM NOW <span>↗</span>
+                </a>
+            </section>
+
+            <!-- MITRUȚ -->
+            <section class="profile">
+                <span class="profile-number">03 / EXPERIENCE</span>
+                <h2>MITRUȚ</h2>
+
+                <p class="price">
+                    250 <span class="currency">LEI</span>
+                </p>
+
+                <p class="per-hour">Pentru o oră</p>
+
+                <a class="book-button"
+                   href="mailto:booking@example.com?subject=Booking%20Mitruț">
+                    BOOK MITRUȚ NOW <span>↗</span>
+                </a>
+            </section>
+
         </div>
 
-        <div class="call-title">
-            Sună-l pe Relu
+        <!-- APEL AMPU -->
+        <section class="call-section">
+
+            <div class="call-title">
+                Sună-l pe Ampu (vezi că-i la mare)
+            </div>
+
+            <a class="phone" href="tel:+40753404525">
+                <span class="phone-icon">📞</span>
+                <span>Sună acum</span>
+            </a>
+
+        </section>
+
+        <div class="footer">
+            An experience to remember
         </div>
 
-        <a class="phone" href="tel:+40753404525">
-            <span class="phone-icon">📞</span>
-            <span>+40 747 922 418</span>
-        </a>
-
-    </div>
-
-    <script>
-        const text = "RELU";
-        const element = document.getElementById("text");
-
-        let i = 0;
-
-        function typeWriter() {
-            if (i < text.length) {
-                element.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 220);
-            }
-        }
-
-        typeWriter();
-    </script>
+    </main>
 
 </body>
 </html>
-
